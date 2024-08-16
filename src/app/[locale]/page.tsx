@@ -8,8 +8,7 @@ export default function Home() {
   const locale = useLocale();
   const isEnglish = locale === 'en';
   
-  // Simulate a synchronous condition to show the loader
-  const isLoading = locale === ''; // Just an example; adjust as needed
+  const isLoading = locale === ''; 
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">

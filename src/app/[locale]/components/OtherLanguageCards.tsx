@@ -2,8 +2,6 @@ import { useTranslations } from "next-intl";
 
 export default function OtherLanguageCards() {
   const t = useTranslations("HomePage");
-
-  // Assuming your translation keys are structured like "title1", "body1", "title2", "body2", etc.
   const posts = Array.from({ length: 10 }, (_, i) => ({
     title: t(`title${i + 1}`),
     body: t(`body${i + 1}`)

@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 
 const Header = () => {
     const [isPending, startTransition] =useTransition();
-  const router = useRouter(); // Call useRouter to get the router instance
+  const router = useRouter(); 
   const localActive = useLocale();
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedRoute = e.target.value;
