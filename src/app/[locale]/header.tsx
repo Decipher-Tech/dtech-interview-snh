@@ -1,17 +1,35 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useTransition } from "react";
+import { ChangeEvent, useEffect, useState, useTransition } from "react";
 import { useLocale } from "next-intl";
 
 const Header = () => {
-    const [isPending, startTransition] =useTransition();
+  const [savedLocale, setSavedLocale] = useState<string | null>(null);
+  const locale = useLocale();
   const router = useRouter(); 
-  const localActive = useLocale();
+  const [isPending, startTransition] = useTransition();
+
+  // Only access localStorage when the component has mounted
+  useEffect(() => {
+    const storedLocale = localStorage.getItem("selectedRoute");
+    setSavedLocale(storedLocale);
+
+    if (storedLocale && locale !== storedLocale) {
+      router.push(`/${storedLocale}`);
+    }
+  }, [locale, router]);
+
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedRoute = e.target.value;
     const fullRoute = `/${selectedRoute}`; 
     console.log(fullRoute);
-    router.push(fullRoute); 
+
+    // Save the selected route in localStorage
+    localStorage.setItem('selectedRoute', selectedRoute);
+
+    startTransition(() => {
+      router.push(fullRoute); 
+    });
   };
 
   return (
@@ -20,7 +38,7 @@ const Header = () => {
         className="border border-transparent rounded-md p-2 w-1/4 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
         name="localization"
         id="localization"
-        defaultValue={localActive}
+        defaultValue={savedLocale || locale}
         onChange={onSelectChange}
         disabled={isPending}
       >

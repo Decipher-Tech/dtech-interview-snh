@@ -7,7 +7,6 @@ import Loader from "./components/Loader";
 export default function Home() {
   const locale = useLocale();
   const isEnglish = locale === 'en';
-  
   const isLoading = locale === ''; 
 
   return (
